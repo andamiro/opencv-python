@@ -12,10 +12,10 @@ B = [
 
 AB = [[0, 0], [0, 0]]
 
-for col in range(len(AB)) :
-    for row in range(len(AB)) :
+for row in range(len(AB)) :
+    for col in range(len(AB)) :
         for i in range(3) :
-            AB[col][row] += A[col][i] * B[i][row]
+            AB[row][col] += A[row][i] * B[i][col]
 
 print(AB[0], AB[1], sep='\n')
 ```
