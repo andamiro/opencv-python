@@ -18,7 +18,7 @@ while True:
 
     img = cv2.warpAffine(img, M, (width, height))
 
-    cv2.imshow("Repeated Rotation", img)
+    cv2.imshow("src", img)
     cv2.waitKey(1)
 
 cv2.destroyAllWindows()
