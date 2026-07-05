@@ -7,8 +7,10 @@ img = cv2.imread('lenna.bmp', cv2.IMREAD_GRAYSCALE)
 spos = (0, 0)
 result = img.copy()
 
+kernel = np.ones((15, 15), np.float32) / (15 * 15)
+
 def on_mouse(event, x, y, flags, param):
-    global spos, img, result
+    global spos, result
 
     if event == cv2.EVENT_LBUTTONDOWN:
         spos = (x, y)
@@ -19,11 +21,12 @@ def on_mouse(event, x, y, flags, param):
         max_x = max(spos[0], x)
         max_y = max(spos[1], y)
 
-        kernel = result[min_y:max_y, min_x:max_x]
+        if min_x == max_x or min_y == max_y:
+            return
 
-        blur_img = cv2.blur(kernel, (15, 15))
-
-        result[min_y:max_y, min_x:max_x] = blur_img
+        select = result[min_y:max_y, min_x:max_x]
+        blur_select = cv2.filter2D(select, -1, kernel)
+        result[min_y:max_y, min_x:max_x] = blur_select
 
         cv2.imshow('blur', result)
 
